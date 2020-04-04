@@ -3,9 +3,17 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
+//ユーザー情報
 export default new Vuex.Store({
-  state: {},
+  state: {
+    nowlogin: false,//ログインしてるか？
+  },
   mutations: {},
   actions: {},
-  modules: {}
+  modules: {},
+  getters: {
+    checklogin(state) {
+      return state.nowlogin;
+    }
+  }
 });
