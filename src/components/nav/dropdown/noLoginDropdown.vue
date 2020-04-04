@@ -1,8 +1,8 @@
 <template>
   <div>
     <b-dropdown>
-      <b-dropdown-item href="">??????</b-dropdown-item>
       <b-dropdown-item href="">????</b-dropdown-item>
+      <b-dropdown-item router-link to="/login">ログイン</b-dropdown-item>
     </b-dropdown>
   </div>
 </template>

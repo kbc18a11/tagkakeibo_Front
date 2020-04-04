@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">タグ家計簿</a>
+    <router-link class="navbar-brand" to="/">タグ家計簿</router-link>
     <button
       class="navbar-toggler d-lg-none"
       type="button"
