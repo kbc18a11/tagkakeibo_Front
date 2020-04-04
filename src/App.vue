@@ -1,9 +1,10 @@
 <template>
   <div id="app">
+    <navber/>
     <div id="nav">
       <router-link to="/">Home</router-link>|
       <router-link to="/about">About</router-link>
-      !
+      
     </div>
     <router-view />
   </div>
@@ -33,9 +34,11 @@
 </style>
 <script>
 // @ is an alias to /src
-
+import navber from '@/components/nav/navber.vue';
 
 export default {
-  components: {}
+  components: {
+    navber,
+  }
 };
 </script>
