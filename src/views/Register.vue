@@ -78,7 +78,7 @@ export default {
         password: this.password,
         password_confirmation: this.password_confirmation
       };
-      //axiosによる通信
+      //ユーザー登録
       const createresdata = await this.axios.post(
         _LaravelAPI + '/createuser',
         requestdata
