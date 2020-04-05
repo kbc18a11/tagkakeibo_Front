@@ -23,11 +23,15 @@ export default new Vuex.Store({
       state.nowlogin = true;
     },
     /**
-     * ログイン開始
+     * ログアウト開始
      * @param {*} state 
      */
     setLogout(state) {
       state.nowlogin = false;
+      state.name = null;
+      state.email = null;
+      state.icon = null;
+      state.Authorization = null;
     },
     /**
      * ユーザー情報の格納
@@ -45,8 +49,9 @@ export default new Vuex.Store({
      * @param {object} payload
      */
     setAuthorization(state, payload) {
-      state.Authorization = 'Bearer '+ payload.access_token;
+      state.Authorization = 'Bearer ' + payload.access_token;
     },
+
   },
   actions: {},
   modules: {},
