@@ -117,8 +117,8 @@ export default {
 
       console.log(this.$store.state);
 
-      //ホーム("/")へリダイレクト
-       return this.$router.push('*');
+      //ホーム("/")へ遷移
+       return this.$router.push('/');
     }
   }
 };
