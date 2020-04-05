@@ -22,7 +22,7 @@
           <a class="nav-link" href="#">Link</a>
         </li>
         <li class="nav-item dropdown">
-          <component :is="dropdownMenu" />
+          <component :is="dropdownMenu" @logout="dologout" />
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
@@ -64,7 +64,13 @@ export default {
     }
   },
   methods: {
-    nowchecklogin: function() {}
+    dologout: function() {
+      //ログイン状態の確認
+      const nowlogin = this.$store.getters.checklogin;
+      //ログインしてなければ、ログインしてないときのメニューを表示
+      if (!nowlogin) this.dropdownMenu = 'noLoginDropdown';
+
+    }
   }
 };
 </script>
