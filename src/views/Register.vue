@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h1>ユーザー登録</h1>
+    <p id="error">{{error}}</p>
     <div class="row">
       <form action method="post" id="loginfrom " class="col-md-6 offset-md-3 text-left">
         <div class="form-group">
@@ -14,7 +15,6 @@
             placeholder
             aria-describedby="helpId"
           />
-          <small id="helpId" class="text-muted">Help text</small>
         </div>
         <div class="form-group">
           <label for>メールアドレス</label>
@@ -27,11 +27,11 @@
             aria-describedby="emailHelpId"
             placeholder
           />
-          <small id="emailHelpId" class="form-text text-muted">Help text</small>
         </div>
         <div class="form-group">
           <label for>パスワード</label>
           <input type="password" v-model="password" class="form-control" name id placeholder />
+          <small id="emailHelpId" class="form-text text-muted">8文字以上でよろしくお願いします</small>
         </div>
         <div class="form-group">
           <label for>パスワードの確認</label>
@@ -65,7 +65,8 @@ export default {
       name: '',
       email: '',
       password: '',
-      password_confirmation: ''
+      password_confirmation: '',
+      error: ''
     };
   },
   methods: {
@@ -78,12 +79,53 @@ export default {
         password_confirmation: this.password_confirmation
       };
       //axiosによる通信
-      const resdata = await this.axios.post(_LaravelAPI + '/createuser', requestdata);
-      console.log(resdata.data);
+      const createresdata = await this.axios.post(
+        _LaravelAPI + '/createuser',
+        requestdata
+      );
+      console.log(createresdata);
+
+      //登録できなかったか？
+      if (!createresdata.data.createResult) {
+        //エラーメッセージの表示
+        this.error = '入力に間違いがあります。';
+        return;
+      }
+
+      //ログイン
+      const loginresdata = await this.axios.post(
+        _LaravelAPI + '/login',
+        requestdata
+      );
+      console.log(loginresdata);
+
+      //ログイン状態の変更
+      this.$store.commit('setLogin');
+      //トークンの格納
+      this.$store.commit('setAuthorization', loginresdata.data);
+
+      //Jwtのトークンをヘッダーに格納
+      this.axios.defaults.headers.common[
+        'Authorization'
+      ] = this.$store.getters.getAuthorization;
+
+      //ユーザー情報の取得
+      const userInfo_resdata = await this.axios.post(_LaravelAPI + '/me');
+
+      //ユーザー情報の格納
+      this.$store.commit('setUserInfo', userInfo_resdata.data);
+
+      console.log(this.$store.state);
+
+      //ホーム("/")へリダイレクト
+       return this.$router.push('*');
     }
   }
 };
 </script>
 
 <style>
+#error {
+  color: red;
+}
 </style>
