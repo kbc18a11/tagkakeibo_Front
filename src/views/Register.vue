@@ -70,7 +70,7 @@ export default {
     };
   },
   methods: {
-    async request() {
+    request: async function() {
       //リクエストのデータ
       const requestdata = {
         name: this.name,
@@ -118,7 +118,7 @@ export default {
       console.log(this.$store.state);
 
       //ホーム("/")へ遷移
-       return this.$router.push('/');
+      return this.$router.push('/');
     }
   }
 };
