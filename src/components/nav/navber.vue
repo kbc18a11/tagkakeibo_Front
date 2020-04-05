@@ -34,24 +34,37 @@
 </template>
 
 <script>
-import noLiginDropdown from '@/components/nav/dropdown/noLoginDropdown.vue';
+import noLoginDropdown from '@/components/nav/dropdown/noLoginDropdown.vue';
 import nowLoginDropdown from '@/components/nav/dropdown/nowLoginDropdown.vue';
 
 export default {
   components: {
-    noLiginDropdown,
+    noLoginDropdown,
     nowLoginDropdown
   },
   data: function() {
     return {
-      dropdownMenu: 'noLiginDropdown'
+      dropdownMenu: 'noLoginDropdown'
     };
   },
-  created: function() {
+  mounted: function() {
     //ログイン状態の確認
     const nowlogin = this.$store.getters.checklogin;
     //ログインしていれば、ログインしてるときのメニューを表示
     if (nowlogin) this.dropdownMenu = 'nowLoginDropdown';
+  },
+  watch: {
+    $route: function(to, from) {
+      if (to.path !== from.path) {
+        //ログイン状態の確認
+        const nowlogin = this.$store.getters.checklogin;
+        //ログインしていれば、ログインしてるときのメニューを表示
+        if (nowlogin) this.dropdownMenu = 'nowLoginDropdown';
+      }
+    }
+  },
+  methods: {
+    nowchecklogin: function() {}
   }
 };
 </script>
