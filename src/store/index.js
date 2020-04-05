@@ -1,6 +1,7 @@
 
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate"; //←読み込む
 
 Vue.use(Vuex);
 
@@ -45,7 +46,7 @@ export default new Vuex.Store({
      */
     setAuthorization(state, payload) {
       state.Authorization = 'Bearer '+ payload.access_token;
-    }
+    },
   },
   actions: {},
   modules: {},
@@ -70,7 +71,7 @@ export default new Vuex.Store({
      */
     getUserInfo(state) {
       return [state.name, state.email, state.icon];
-    }
-
-  }
+    },
+  },
+  plugins: [createPersistedState({ storage: window.sessionStorage })]
 });
