@@ -90,10 +90,12 @@ export default {
      * フォームで選択された画像をiconプロパティに代入
      */
     selectFile: function(e) {
-      this.icon = e.target.files;
+      //画像は1つに限定させるため、０番目の要素を入れる
+      this.icon = e.target.files[0];
     },
     
-  };
+  }
+};
 </script>
 
 <style>
