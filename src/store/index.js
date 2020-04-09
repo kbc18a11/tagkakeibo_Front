@@ -9,6 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     nowlogin: false,//ログインしてるか？
+    id: null,
     name: null,
     email: null,
     icon: null,
@@ -28,6 +29,7 @@ export default new Vuex.Store({
      */
     setLogout(state) {
       state.nowlogin = false;
+      state.id = null;
       state.name = null;
       state.email = null;
       state.icon = null;
@@ -39,6 +41,7 @@ export default new Vuex.Store({
      * @param {object} payload 
      */
     setUserInfo(state, payload) {
+      state.id = payload.id;
       state.name = payload.name;
       state.email = payload.email;
       state.icon = payload.icon;
@@ -75,7 +78,14 @@ export default new Vuex.Store({
      * @param {*} state 
      */
     getUserInfo(state) {
-      return [state.name, state.email, state.icon];
+      return [state.id, state.name, state.email, state.icon];
+    },
+    /**
+     * ユーザーidの取得
+     * @param {*} state 
+     */
+    getId(state) {
+      return state.id;
     },
     /**
      * ユーザーネーム取得
