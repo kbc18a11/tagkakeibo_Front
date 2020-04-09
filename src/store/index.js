@@ -77,6 +77,20 @@ export default new Vuex.Store({
     getUserInfo(state) {
       return [state.name, state.email, state.icon];
     },
+    /**
+     * ユーザーネーム取得
+     * @param {*} state 
+     */
+    getName(state) {
+      return state.name;
+    },
+    /**
+     * メールアドレス取得
+     * @param {*} state 
+     */
+    getEmail(state) {
+      return state.email;
+    },
   },
   plugins: [createPersistedState({ storage: window.sessionStorage })]
 });
