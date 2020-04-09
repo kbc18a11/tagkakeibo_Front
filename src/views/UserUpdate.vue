@@ -57,10 +57,13 @@
           />
           <small id="helpId" class="form-text text-muted">8文字以上のご入力をお願いします</small>
         </div>
-        <button type="button" @click="infoUpdate    const requestdata = {
-        email: this.email,
-        password: this.password
-      };" name id class="btn btn-primary btn-lg btn-block">更新</button>
+        <button
+          type="button"
+          @click="infoUpdate"
+          name
+          id
+          class="btn btn-primary btn-lg btn-block"
+        >更新</button>
       </form>
     </div>
   </div>
@@ -83,11 +86,14 @@ export default {
     this.email = this.$store.getters.getEmail;
   },
   methods: {
+    /**
+     * フォームで選択された画像をiconプロパティに代入
+     */
     selectFile: function(e) {
       this.icon = e.target.files;
     },
-  }
-};
+    
+  };
 </script>
 
 <style>
