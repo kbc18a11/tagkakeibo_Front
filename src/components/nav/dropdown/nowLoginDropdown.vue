@@ -14,7 +14,7 @@ import { _S3 } from '@/hostName';
 export default {
   data: function() {
     return {
-      imgPath: _S3 + '/icon/dmXOpHyBfNVNraMkWQpCbzZPsV5xtPHXloQ5le5a.png'
+      imgPath: _S3 + this.$store.getters.getIcon
     };
   },
   methods: {
