@@ -101,6 +101,13 @@ export default new Vuex.Store({
     getEmail(state) {
       return state.email;
     },
+    /**
+     * ユーザーアイコンのS3のパス取得
+     * @param {*} state 
+     */
+    getIcon(state) {
+      return state.icon;
+    }
   },
   plugins: [createPersistedState({ storage: window.sessionStorage })]
 });
