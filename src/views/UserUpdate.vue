@@ -32,6 +32,7 @@
           <input
             type="file"
             class="form-control-file"
+            @change="selectFile"
             name
             id
             placeholder
@@ -41,7 +42,6 @@
         </div>
         <div class="form-group">
           <label for>パスワード</label>
-          <img :src="icon" />
           <input type="password" class="form-control" v-model="password" name id placeholder />
           <small id="helpId" class="form-text text-muted">8文字以上のご入力をお願いします</small>
         </div>
@@ -57,7 +57,10 @@
           />
           <small id="helpId" class="form-text text-muted">8文字以上のご入力をお願いします</small>
         </div>
-        <button type="button" name id class="btn btn-primary btn-lg btn-block">更新</button>
+        <button type="button" @click="infoUpdate    const requestdata = {
+        email: this.email,
+        password: this.password
+      };" name id class="btn btn-primary btn-lg btn-block">更新</button>
       </form>
     </div>
   </div>
@@ -75,11 +78,15 @@ export default {
       icon: null
     };
   },
-  created: function(){
+  created: function() {
     this.name = this.$store.getters.getName;
     this.email = this.$store.getters.getEmail;
   },
-  
+  methods: {
+    selectFile: function(e) {
+      this.icon = e.target.files;
+    },
+  }
 };
 </script>
 
