@@ -72,10 +72,14 @@ export default {
       password: '',
       password_confirmation: '',
       error: '',
-      icon: ''
+      icon: null
     };
   },
-  created: {}
+  created: function(){
+    this.name = this.$store.getters.getName;
+    this.email = this.$store.getters.getEmail;
+  },
+  
 };
 </script>
 
