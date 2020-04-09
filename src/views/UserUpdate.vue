@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h1>ユーザー情報</h1>
+    <p id="error">{{error}}</p>
     <div class="row">
       <form action method="post" id="loginfrom " class="col-md-6 offset-md-3 text-left">
         <div class="form-group">
@@ -118,12 +119,25 @@ export default {
         'multipart/form-data';
 
       //axiosによる通信
-      const loginresdata = await this.axios.post(
+      const resdata = await this.axios.post(
         _LaravelAPI + '/updateuser',
         requestdata
       );
 
-      console.log(loginresdata.data);
+      //ログインできなかったか？
+      if (resdata.data.error) {
+        console.log(resdata.data);
+        this.error = 'メッセージとパスワードが違います。';
+        return;
+      }
+
+      //ユーザー情報の格納
+      this.$store.commit('setUserInfo', resdata.data.userInfo);
+
+      console.log(this.$store.state);
+
+      //ホーム("/")へ遷移
+      return this.$router.push('/');
     }
   }
 };
