@@ -33,6 +33,14 @@ export default {
         () => {}
       );
     }
+  },
+  watch: {
+    $route: function(to, from) {
+      //アイコンの読み直し
+      if (to.path !== from.path) {
+        this.imgPath = _S3 + this.$store.getters.getIcon
+      }
+    }
   }
 };
 </script>
