@@ -70,9 +70,12 @@
 </template>
 
 <script>
+import { _LaravelAPI } from '@/hostName.js';
+
 export default {
   data: function() {
     return {
+      id: '',
       name: '',
       email: '',
       password: '',
@@ -82,6 +85,7 @@ export default {
     };
   },
   created: function() {
+    this.id = this.$store.getters.getId;
     this.name = this.$store.getters.getName;
     this.email = this.$store.getters.getEmail;
   },
@@ -93,7 +97,34 @@ export default {
       //画像は1つに限定させるため、０番目の要素を入れる
       this.icon = e.target.files[0];
     },
-    
+    infoUpdate: async function() {
+      const requestdata = new FormData();
+      requestdata.append('icon', this.icon);
+      requestdata.append('id', this.id);
+      requestdata.append('name', this.name);
+      requestdata.append('email', this.email);
+      requestdata.append('password', this.password);
+      requestdata.append('password_confirmation', this.password_confirmation);
+
+      console.log(requestdata);
+
+      //Jwtのトークンをヘッダーに格納
+      this.axios.defaults.headers.common[
+        'Authorization'
+      ] = this.$store.getters.getAuthorization;
+
+      //Content-Typeの設定
+      this.axios.defaults.headers.common['Content-Type'] =
+        'multipart/form-data';
+
+      //axiosによる通信
+      const loginresdata = await this.axios.post(
+        _LaravelAPI + '/updateuser',
+        requestdata
+      );
+
+      console.log(loginresdata.data);
+    }
   }
 };
 </script>
